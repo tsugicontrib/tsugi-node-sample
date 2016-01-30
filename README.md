@@ -1,11 +1,20 @@
-# tsugi-node-sample
-The Sample Application for the Node.js version of Tsugi
+
+Sample Tsugi Applictation For Node
+==================================
+
+*Under Contstruction:* This is just emerging test code to explore
+how to approach a Tsugi (www.tsugi.org) implementation for Node.
+For now the application and emergent Tsugi library code will all
+be in this sample application repo.  As the Tsugi library code 
+become more of a real library, the code will be refactored so the
+Tsugi Node library can be distributed through npm.
+
+Installation
+------------
 
 Check the code out and do
 
     npm install
-
-To download dependencies
 
 Starting Node
 -------------
