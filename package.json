@@ -1,0 +1,27 @@
+{
+  "name": "tsugi-node-sample",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "multer": "^1.1.0",
+    "mysql": ">=1.0.0",
+    "oauth-sign": ">=0.0.1",
+    "url": ">=0.0.0"
+  },
+  "description": "A Sample Tsugi Application in Node",
+  "main": "http.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csev/tsugi-node-sample.git"
+  },
+  "author": "Charles R Severance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csev/tsugi-node-sample/issues"
+  },
+  "homepage": "https://github.com/csev/tsugi-node-sample#readme"
+}
