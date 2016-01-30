@@ -6,7 +6,7 @@ Sample Tsugi Application For Node
 how to approach a Tsugi (www.tsugi.org) implementation for Node.
 For now the application and emergent Tsugi library code will all
 be in this sample application repo.  As the Tsugi library code 
-become more of a real library, the code will be refactored so the
+becomes more of a real library, the code will be refactored so the
 Tsugi Node library can be distributed through npm.
 
 Installation
