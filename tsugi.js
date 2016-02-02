@@ -1,9 +1,13 @@
 
+var $q = require ('q');
+
 exports.version = "0.0.1";
 
 exports.mysql = function() {
 
+    var deferred = $q.defer();
     var mysql = require('mysql');
+ 
     var connection = mysql.createConnection({
         host     : 'localhost',
         port     : 8889,
@@ -14,12 +18,16 @@ exports.mysql = function() {
 
     connection.connect();
     connection.query('SELECT * from mjjs', function(err, rows, fields) {
-        if (!err)
+        if (!err){
+            deferred.resolve (rows);
             console.log('The solution is: ', rows);
-        else
-            console.log('Error while performing Query.');
+        } else {
+            deferred.reject(err);
+            console.log('Error while performing Query.', err );
+        }
     });
     connection.end();
+    return deferred.promise;
 }
 
 exports.validate = function(req, res) {

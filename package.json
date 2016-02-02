@@ -7,7 +7,8 @@
     "multer": "^1.1.0",
     "mysql": ">=1.0.0",
     "oauth-sign": "git://github.com/csev/oauth-sign.git#master",
-    "url": ">=0.0.0"
+    "url": ">=0.0.0",
+    "q": "1.4.1"
   },
   "description": "A Sample Tsugi Application in Node",
   "main": "http.js",
