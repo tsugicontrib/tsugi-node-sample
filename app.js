@@ -17,16 +17,24 @@ app.post('/lti', upload.array(), function (req, res, next) {
 });
 
 app.get('/lti', function (req, res) {
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-  Tsugi.mysql();
-  res.end('Expecting an LTI POST to this URL');
-})
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+
+  Tsugi.mysql().then (function (rows){
+     res.end('Expecting an LTI POST to this URL');
+  }).catch(function (err){
+     res.end('Tsugi Test Failed!');
+  });
+});
 
 app.get('/', function (req, res) {
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-  Tsugi.mysql();
-  res.end('Tsugi Test complete!')
-})
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+
+  Tsugi.mysql().then (function (rows){
+     res.end('Tsugi Test complete!')
+  }).catch(function (err){
+     res.end('Tsugi Test Failed!');
+  });
+});
 
 console.log("Test mysql connection at http://localhost:3000");
 console.log("Test oauth1 url=http://localhost:3000/lti key=12345 secret=secret");
