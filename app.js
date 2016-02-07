@@ -32,5 +32,6 @@ app.get('/', function (req, res) {
 
 console.log("Test mysql connection at http://localhost:3000");
 console.log("Test oauth1 url=http://localhost:3000/lti key=12345 secret=secret");
+console.log("LTI test harness at https://online.dr-chuck.com/sakai-api-test/lms.php");
 
 app.listen(3000);
