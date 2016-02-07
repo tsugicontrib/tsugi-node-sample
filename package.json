@@ -4,7 +4,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
-    "ims-lti": "^3.0.2",
+    "tsugi-node-lti-tmp": ">=0.0.3",
     "multer": "^1.1.0",
     "mysql": ">=1.0.0",
     "url": ">=0.0.0"

@@ -9,11 +9,13 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.post('/lti', upload.array(), function (req, res, next) {
-  ret = Tsugi.validate(req, res);
-  if ( ret === true ) {
+  var tsugi = Tsugi.setup(req, res);
+  console.log(tsugi);
+  if ( tsugi.success ) {
     console.log('SUCCESS');
   } else {
-    console.log('FAIL:'+ret);
+    console.log('FAIL:'+tsugi.message);
+    console.log(tsugi.base());
   }
   res.json(req.body);
 });
