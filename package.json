@@ -4,7 +4,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
-    "tsugi-node-lti-tmp": ">=0.0.3",
+    "tsugi-node-lti-tmp": "https://github.com/csev/tsugi-node-lti-tmp.git#master",
     "multer": "^1.1.0",
     "mysql": ">=1.0.0",
     "url": ">=0.0.0"
