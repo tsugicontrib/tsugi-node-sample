@@ -1,5 +1,4 @@
 // http://code.runnable.com/U0sU598vXio2uD-1/example-reading-form-input-with-express-4-0-and-body-parser-for-node-js
-
 var app = require('express')();
 var bodyParser = require('body-parser');
 var multer = require('multer'); // v1.0.5
@@ -10,8 +9,11 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.post('/lti', upload.array(), function (req, res, next) {
-  if ( Tsugi.validate(req, res) ) {
-    console.log("SUCCESS!");
+  ret = Tsugi.validate(req, res);
+  if ( ret === true ) {
+    console.log('SUCCESS');
+  } else {
+    console.log('FAIL:'+ret);
   }
   res.json(req.body);
 });

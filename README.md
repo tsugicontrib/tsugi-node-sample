@@ -15,6 +15,7 @@ Installation
 Check the code out and do
 
     npm install
+    npm prune
 
 Starting Node
 -------------
@@ -36,14 +37,13 @@ Put in http://localhost:3000/lti as the launch URL
 
 Launch the code - watching the node Console - it should be like this:
 
-    Base String
-    POST&http%3A%2F%2Flocalhost%3A3000%2Flti
-       ... many lines of output
-    OAuth    sig=l7K4WWDcGXCFVg7d2clsrEE4QrQ=
-    Computed sig=l7K4WWDcGXCFVg7d2clsrEE4QrQ=
-    OAuth  time=1454181418
-    Actual time=1454181419
-    SUCCESS!
+    SUCCESS
+
+Then change the secret to "secretx and launch again - you should 
+sess this in the log:
+
+    FAIL:Error: Invalid Signature
+
 
 Testing the MySQL code
 ----------------------
@@ -64,19 +64,5 @@ Copy paste this command into the text box and hit go
 Navigate to http://localhost:3000 and watch the log it should look like this:
 
     The solution is:  [ { name: 'tsugi' } ]
-
-Forked Version of oauth-sign
-----------------------------
-
-I needed access to the `generateBase()` method from the `oauth-sign` code.
-So I forked the repo:
-
-    https://github.com/request/oauth-sign
-
-And made the one-line fix, and point to my fix in the `package.json`
-
-I have sent a PR to the originating project.
-
-    https://github.com/request/oauth-sign/pull/20
 
 

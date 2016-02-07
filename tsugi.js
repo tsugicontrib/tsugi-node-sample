@@ -23,6 +23,16 @@ exports.mysql = function() {
 }
 
 exports.validate = function(req, res) {
+    lti = require('ims-lti');
+
+    // provider = new lti.Provider '12345', 'secret', [nonce_store=MemoryStore], [signature_method=HMAC_SHA1]
+    provider = new lti.Provider ('12345', 'secret');
+    x = provider.valid_request(req, req.body, function(x,y) { return [x,y];} );
+    if ( x[1] ) return true;
+    return x[0];
+}
+
+exports.validateold = function(req, res) {
     var params = req.body;
     if ( req.body.oauth_version != "1.0" ) {
         console.log("Nothing to see here");

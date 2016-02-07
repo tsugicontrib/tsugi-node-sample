@@ -4,9 +4,9 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
+    "ims-lti": "^3.0.2",
     "multer": "^1.1.0",
     "mysql": ">=1.0.0",
-    "oauth-sign": "git://github.com/csev/oauth-sign.git#master",
     "url": ">=0.0.0"
   },
   "description": "A Sample Tsugi Application in Node",
