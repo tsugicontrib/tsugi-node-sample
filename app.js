@@ -12,7 +12,7 @@ app.post('/lti', upload.array(), function (req, res, next) {
   var tsugi = Tsugi.setup(req, res);
   console.log(tsugi);
   res.write('<pre>\n');
-  res.write('Welcome to Tsugi\n\n');
+  res.write('Welcome to Tsugi on Node.js\n\n');
   if ( tsugi.success ) {
     res.write('Launch validated\n\n');
     console.log('SUCCESS');
