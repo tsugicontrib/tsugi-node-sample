@@ -14,14 +14,7 @@ Installation
 
 Check the code out and do
 
-    npm install ims-lti --save
     npm install
-    npm prune
-
-For some reason, I cannot get the ims-lti coffeescript code 
-from https://github.com/omsmith/ims-lti to install 
-automatically from my package.json so I have to install it 
-manually until I figure that out.
 
 Starting Node
 -------------
