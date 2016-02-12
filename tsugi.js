@@ -40,9 +40,10 @@ exports.setup = function(req, res) {
     provider = new lti.Provider ('12345', 'secret');
     x = provider.valid_request(req, req.body, function(x,y,z) { return [x,y,z];} );
     retval = new Launch(req, res, provider, x[2]);
-    // console.log(x);
+    console.log(x);
     retval.success = x[1];
-    retval.message = x[0].message;
+    retval.message = '';
+    if ( ! retval.success ) retval.message = x[0].message;
     return retval;
 }
 

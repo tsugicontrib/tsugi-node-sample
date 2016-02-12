@@ -11,13 +11,23 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.post('/lti', upload.array(), function (req, res, next) {
   var tsugi = Tsugi.setup(req, res);
   console.log(tsugi);
+  res.write('<pre>\n');
+  res.write('Welcome to Tsugi\n\n');
   if ( tsugi.success ) {
+    res.write('Launch validated\n\n');
     console.log('SUCCESS');
   } else {
+    res.write('Validation FAIL:'+tsugi.message+"\n");
+    res.write("</pre>\n");
+    res.write("<p>\n");
+    res.write('Base String:'+tsugi.base()+"\n");
+    res.write("</p>\n");
+    res.write("<pre>\n");
     console.log('FAIL:'+tsugi.message);
     console.log(tsugi.base());
   }
-  res.json(req.body);
+  res.end("</pre>\n");
+  // res.json(req.body);
 });
 
 app.get('/lti', function (req, res) {
