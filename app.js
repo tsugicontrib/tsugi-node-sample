@@ -4,9 +4,17 @@ var bodyParser = require('body-parser');
 var multer = require('multer'); // v1.0.5
 var upload = multer(); // for parsing multipart/form-data
 var Tsugi = require('./tsugi');
+var Zippy = require('./zippy');
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+app.use(function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+
+Zippy.setup(app,'/yo');
 
 app.post('/lti', upload.array(), function (req, res, next) {
   var tsugi = Tsugi.setup(req, res);

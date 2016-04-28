@@ -22,19 +22,27 @@ exports.mysql = function() {
     connection.end();
 }
 
-function Launch(req, res, provider, base) {
-    var _req = req;
-    var _res = res;
-    var _provider = provider;
-    var _base = base;
-    this.req = function() { return _req; };
-    this.res = function() { return _res; };
-    this.provider = function() { return _provider; };
-    this.base = function() { return _base; };
+/**
+ * This is the launch class
+ */
+class Launch {
+    /**
+     * This is the constructor for the launch class.
+     */
+    constructor(req, res, provider, base) {
+        var _req = req;
+        var _res = res;
+        var _provider = provider;
+        var _base = base;
+        this.req = function() { return _req; };
+        this.res = function() { return _res; };
+        this.provider = function() { return _provider; };
+        this.base = function() { return _base; };
+    }
 }
 
 exports.setup = function(req, res) {
-    lti = require('tsugi-node-lti-tmp/lib/ims-lti.js');
+    lti = require('tsugi-node-lti/lib/ims-lti.js');
 
     // provider = new lti.Provider '12345', 'secret', [nonce_store=MemoryStore], [signature_method=HMAC_SHA1]
     provider = new lti.Provider ('12345', 'secret');
