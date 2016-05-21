@@ -4,7 +4,16 @@ var bodyParser = require('body-parser');
 var multer = require('multer'); // v1.0.5
 var upload = multer(); // for parsing multipart/form-data
 var Tsugi = require('./tsugi');
-var Zippy = require('./zippy');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+
+app.use(session({
+  name: 'server-session-cookie-id',
+  secret: 'my express secret',
+  saveUninitialized: true,
+  resave: true,
+  store: new FileStore()
+}));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -14,7 +23,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-Zippy.setup(app,'/yo');
 
 app.post('/lti', upload.array(), function (req, res, next) {
   var tsugi = Tsugi.setup(req, res);
@@ -48,6 +56,21 @@ app.get('/', function (req, res) {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8')
   Tsugi.mysql();
   res.end('Tsugi Test complete!')
+})
+
+// Access the session as req.session
+app.get('/sess', function(req, res, next) {
+  var sess = req.session
+  if (sess.views) {
+    sess.views++
+    res.setHeader('Content-Type', 'text/html')
+    res.write('<p>views: ' + sess.views + '</p>')
+    res.write('<p>expires in: ' + (sess.cookie.maxAge / 1000) + 's</p>')
+    res.end()
+  } else {
+    sess.views = 1
+    res.end('welcome to the session demo. refresh!')
+  }
 })
 
 console.log("Test mysql connection at http://localhost:3000");

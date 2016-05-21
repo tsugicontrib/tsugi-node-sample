@@ -1,6 +1,7 @@
 # Logs
 esdoc
 logs
+sessions
 *.log
 npm-debug.log*
 *.swp

@@ -4,6 +4,8 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
+    "express-session": ">=1.0.0",
+    "session-file-store": ">=0.1.0",
     "tsugi-node-lti": "https://github.com/csev/tsugi-node-lti.git#master",
     "multer": "^1.1.0",
     "mysql": ">=1.0.0",
