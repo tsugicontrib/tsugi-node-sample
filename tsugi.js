@@ -1,27 +1,6 @@
 
 exports.version = "0.0.1";
 
-exports.mysql = function() {
-
-    var mysql = require('mysql');
-    var connection = mysql.createConnection({
-        host     : 'localhost',
-        port     : 8889,
-        user     : 'mjjsuser',
-        password : 'mjjspassword',
-        database : 'mjjs'
-    });
-
-    connection.connect();
-    connection.query('SELECT * from mjjs', function(err, rows, fields) {
-        if (!err)
-            console.log('The solution is: ', rows);
-        else
-            console.log('Error while performing Query.');
-    });
-    connection.end();
-}
-
 /**
  * This is the launch class
  */
@@ -38,6 +17,8 @@ class Launch {
         this.res = function() { return _res; };
         this.provider = function() { return _provider; };
         this.base = function() { return _base; };
+        this.complete = false;
+        this.success = false;
     }
 }
 
@@ -49,9 +30,25 @@ exports.setup = function(req, res) {
     x = provider.valid_request(req, req.body, function(x,y,z) { return [x,y,z];} );
     retval = new Launch(req, res, provider, x[2]);
     console.log(x);
+    retval.complete = false;
     retval.success = x[1];
     retval.message = '';
-    if ( ! retval.success ) retval.message = x[0].message;
+    if ( ! retval.success ) {
+        retval.message = x[0].message;
+        returnUrl = req.body.launch_presentation_return_url
+        if ( returnUrl ) {
+            if ( returnUrl.indexOf('?') > 0 ) {
+                returnUrl += '&';
+            } else {
+                returnUrl += '?';
+            }
+            returnUrl += 'lti_errormsg=' + encodeURIComponent(x[0].message);
+            returnUrl += '&base_string=' + encodeURIComponent(x.base);
+            console.log(returnUrl);
+            res.redirect(returnUrl);
+            retval.complete = true;
+        }
+    }
     return retval;
 }
 

@@ -25,36 +25,34 @@ app.use(function (req, res, next) {
 
 
 app.post('/lti', upload.array(), function (req, res, next) {
+  console.log(req.body);
   var tsugi = Tsugi.setup(req, res);
   console.log(tsugi);
-  res.write('<pre>\n');
-  res.write('Welcome to Tsugi on Node.js\n\n');
   if ( tsugi.success ) {
+    res.write('<pre>\n');
+    res.write('Welcome to Tsugi on Node.js\n\n');
     res.write('Launch validated\n\n');
     console.log('SUCCESS');
-  } else {
+    res.end("</pre>\n");
+  } else if ( ! retval.complete ) {
+    res.write('<pre>\n');
     res.write('Validation FAIL:'+tsugi.message+"\n");
-    res.write("</pre>\n");
     res.write("<p>\n");
     res.write('Base String:'+tsugi.base()+"\n");
     res.write("</p>\n");
-    res.write("<pre>\n");
     console.log('FAIL:'+tsugi.message);
     console.log(tsugi.base());
+    res.end("</pre>\n");
   }
-  res.end("</pre>\n");
-  // res.json(req.body);
 });
 
 app.get('/lti', function (req, res) {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-  Tsugi.mysql();
   res.end('Expecting an LTI POST to this URL');
 })
 
 app.get('/', function (req, res) {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-  Tsugi.mysql();
   res.end('Tsugi Test complete!')
 })
 
