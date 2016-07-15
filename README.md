@@ -44,24 +44,8 @@ sess this in the log:
     FAIL:Error: Invalid Signature
 
 
-Testing the MySQL code
-----------------------
+Updating when tsugi-node is changed in github
+---------------------------------------------
 
-This is hard-coded to talk to port 8888 (i.e. MAMP). Make the database:
-
-    CREATE DATABASE mjjs DEFAULT CHARACTER SET utf8;
-    GRANT ALL ON mjjs.* TO 'mjjsuser'@'localhost' IDENTIFIED BY 'mjjspassword';
-    GRANT ALL ON mjjs.* TO 'mjjsuser'@'127.0.0.1' IDENTIFIED BY 'mjjspassword';
-
-Refresh the phpMyAdmin page, and mjjs now appears on the left.
-Click on the mjjs database and then click on the SQL tab. 
-Copy paste this command into the text box and hit go
-
-    CREATE TABLE mjjs (name TEXT) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-    INSERT INTO mjjs (name) VALUES ('tsugi');
-
-Navigate to http://localhost:3000 and watch the log it should look like this:
-
-    The solution is:  [ { name: 'tsugi' } ]
-
+    npm update
 
