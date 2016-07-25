@@ -7,7 +7,8 @@ var Config = require('./Config.js');
 let CFG = new Config();
 var Tsugi = require('tsugi-node/src/Tsugi.js');
 var session = require('express-session');
-var FileStore = require('session-file-store')(session);
+// var FileStore = require('session-file-store')(session);
+var MemStore = require('session-memory-store')(session);
 
 
 app.use(session({
@@ -15,7 +16,7 @@ app.use(session({
   secret: 'my express secret',
   saveUninitialized: true,
   resave: true,
-  store: new FileStore()
+  store: new MemStore()
 }));
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -31,7 +32,7 @@ app.post('/lti', upload.array(), function (req, res, next) {
   console.log(req.body);
   let start = Tsugi.requireData(CFG, req, res);
   start.then( function(launch) {
-console.log("APP LAUNCH");
+    console.log("APP POST LAUNCH");
     if ( launch.complete ) return;
 
     if ( launch.success ) {
@@ -55,9 +56,10 @@ console.log("APP LAUNCH");
 
 app.get('/lti', function (req, res, next) {
   console.log('GET to /lti');
+  console.log('SESSION',req.session);
   let start = Tsugi.requireData(CFG, req, res);
   start.then( function(launch) {
-console.log("APP LAUNCH");
+    console.log("APP GET LAUNCH");
     if ( launch.complete ) return;
 
     if ( launch.success ) {

@@ -6,6 +6,7 @@
     "express": "^4.13.4",
     "express-session": ">=1.0.0",
     "session-file-store": ">=0.1.0",
+    "session-memory-store": ">=0.1.0",
     "tsugi-node-lti": "https://github.com/csev/tsugi-node-lti.git#master",
     "tsugi-node": "https://github.com/csev/tsugi-node.git#master",
     "multer": "^1.1.0",
