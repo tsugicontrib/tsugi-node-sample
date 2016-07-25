@@ -3,9 +3,12 @@ var app = require('express')();
 var bodyParser = require('body-parser');
 var multer = require('multer'); // v1.0.5
 var upload = multer(); // for parsing multipart/form-data
-var Tsugi = require('./tsugi');
+var Config = require('./Config.js');
+let CFG = new Config();
+var Tsugi = require('tsugi-node/src/Tsugi.js');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+
 
 app.use(session({
   name: 'server-session-cookie-id',
@@ -26,26 +29,51 @@ app.use(function (req, res, next) {
 
 app.post('/lti', upload.array(), function (req, res, next) {
   console.log(req.body);
-  var tsugi = Tsugi.setup(req, res);
-  console.log(tsugi);
-  if ( tsugi.success ) {
-    res.write('<pre>\n');
-    res.write('Welcome to Tsugi on Node.js\n\n');
-    res.write('Launch validated\n\n');
-    console.log('SUCCESS');
-    res.end("</pre>\n");
-  } else if ( ! retval.complete ) {
-    res.write('<pre>\n');
-    res.write('Validation FAIL:'+tsugi.message+"\n");
-    res.write("<p>\n");
-    res.write('Base String:'+tsugi.base()+"\n");
-    res.write("</p>\n");
-    console.log('FAIL:'+tsugi.message);
-    console.log(tsugi.base());
-    res.end("</pre>\n");
-  }
+  let start = Tsugi.requireData(CFG, req, res);
+  start.then( function(launch) {
+console.log("APP LAUNCH");
+    if ( launch.complete ) return;
+
+    if ( launch.success ) {
+      res.write('<pre>\n');
+      res.write('Welcome to POST Tsugi on Node.js\n\n');
+      res.write('Launch validated\n\n');
+      console.log('SUCCESS');
+      res.end("</pre>\n");
+    } else {
+      res.write('<pre>\n');
+      res.write('POST Validation FAIL:'+launch.message+"\n");
+      res.write("<p>\n");
+      res.write('Base String:'+launch.base+"\n");
+      res.write("</p>\n");
+      console.log('FAIL:'+launch.message);
+      console.log(launch.base);
+      res.end("</pre>\n");
+    }
+  });
 });
 
+app.get('/lti', function (req, res, next) {
+  console.log('GET to /lti');
+  let start = Tsugi.requireData(CFG, req, res);
+  start.then( function(launch) {
+console.log("APP LAUNCH");
+    if ( launch.complete ) return;
+
+    if ( launch.success ) {
+      res.write('<pre>\n');
+      res.write('Welcome to GET Tsugi on Node.js\n\n');
+      res.write('Launch validated\n\n');
+      console.log('SUCCESS');
+      res.end("</pre>\n");
+    } else {
+      res.write('<pre>\n');
+      res.write('GET FAIL:'+launch.message+"\n");
+      console.log('FAIL:'+launch.message);
+      res.end("</pre>\n");
+    }
+  });
+});
 app.get('/lti', function (req, res) {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8')
   res.end('Expecting an LTI POST to this URL');
