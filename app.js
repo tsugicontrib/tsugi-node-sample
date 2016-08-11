@@ -32,50 +32,61 @@ app.post('/lti', upload.array(), function (req, res, next) {
   console.log(req.body);
   let start = Tsugi.requireData(CFG, req, res);
   start.then( function(launch) {
+
     console.log("APP POST LAUNCH");
-    if ( launch.complete ) return;
+
+    if ( launch.complete ) {
+      return next();
+    }
 
     if ( launch.success ) {
-      res.write('<pre>\n');
-      res.write('Welcome to POST Tsugi on Node.js\n\n');
-      res.write('Launch validated\n\n');
-      console.log('SUCCESS');
-      res.end("</pre>\n");
-    } else {
-      res.write('<pre>\n');
-      res.write('POST Validation FAIL:'+launch.message+"\n");
-      res.write("<p>\n");
-      res.write('Base String:'+launch.base+"\n");
-      res.write("</p>\n");
-      console.log('FAIL:'+launch.message);
-      console.log(launch.base);
-      res.end("</pre>\n");
+      res.send(`
+        <pre>
+          Welcome to POST Tsugi on Node.js
+          Launch validated
+        </pre>`);
+      console.log('APP POST: SUCCESS');
     }
+  }).catch (function (error) {
+	  console.log ('APP POST LAUNCH Error:' , error);
+
+    res.send(`
+      <pre>
+        POST Validation FAIL: ${error}
+      </pre>`);
   });
+
 });
 
 app.get('/lti', function (req, res, next) {
-  console.log('GET to /lti');
+
   console.log('SESSION',req.session);
   let start = Tsugi.requireData(CFG, req, res);
   start.then( function(launch) {
     console.log("APP GET LAUNCH");
-    if ( launch.complete ) return;
+
+    if ( launch.complete ) {
+      return next();
+    }
 
     if ( launch.success ) {
-      res.write('<pre>\n');
-      res.write('Welcome to GET Tsugi on Node.js\n\n');
-      res.write('Launch validated\n\n');
-      console.log('SUCCESS');
-      res.end("</pre>\n");
-    } else {
-      res.write('<pre>\n');
-      res.write('GET FAIL:'+launch.message+"\n");
-      console.log('FAIL:'+launch.message);
-      res.end("</pre>\n");
+      res.send(`
+        <pre>
+          Welcome to GET Tsugi on Node.js
+          Launch validated
+        </pre>`);
+      console.log('APP GET: SUCCESS');
     }
+  }).catch (function (error) {
+    console.log ('APP POST LAUNCH Error:' , error);
+
+    res.send(`
+      <pre>
+        POST Validation FAIL: ${error}
+      </pre>`);
   });
 });
+
 app.get('/lti', function (req, res) {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8')
   res.end('Expecting an LTI POST to this URL');
@@ -92,9 +103,10 @@ app.get('/sess', function(req, res, next) {
   if (sess.views) {
     sess.views++
     res.setHeader('Content-Type', 'text/html')
-    res.write('<p>views: ' + sess.views + '</p>')
-    res.write('<p>expires in: ' + (sess.cookie.maxAge / 1000) + 's</p>')
-    res.end()
+    res.send (`
+      <p>Views: ${sess.views} </p>
+      <p>Expires in: ${sess.cookie.maxAge / 1000}s </p>
+    `);
   } else {
     sess.views = 1
     res.end('welcome to the session demo. refresh!')
