@@ -4,8 +4,8 @@ var PDOX = require("tsugi-node/src/PDOX");
 var Q = require("q");
 
 /**
- * This is a sample of the configuration file.  Copy this to 
- * Config.js in the top directory and edit all the values to 
+ * This is a sample of the configuration file.  Copy this to
+ * Config.js in the top directory and edit all the values to
  * set your Tsugi configuration.
  *
  *  Calling sequence in a NodeJS app:
@@ -26,7 +26,7 @@ class Config {
          */
         this.wwwroot = 'http://localhost/tsugi';  /// For normal
         // this.wwwroot = 'http://localhost:8888/tsugi';   // For MAMP
-        
+
         /**
          * Database connection information.
          */
@@ -54,9 +54,9 @@ class Config {
          * single database if your hosting choices are limited.
          */
         this.dbprefix  = '';
-        
+
         /**
-         * You can use the CDN copy of the static content in testing or 
+         * You can use the CDN copy of the static content in testing or
          * light production.
          * If you check out a copy of the static content locally and do not
          * want to use the CDN copy (perhaps you are on a plane or are otherwise
@@ -64,9 +64,9 @@ class Config {
          */
          this.staticroot = 'https://www.dr-chuck.net/tsugi-static';
          // this.staticroot = this.wwwroot . "/../tsugi-static";
-        
+
         /**
-         * Where the bulk mail comes from - should be a real address with 
+         * Where the bulk mail comes from - should be a real address with
          * a wildcard box you check
          */
         this.maildomain = false; // 'mail.example.com';
@@ -78,8 +78,8 @@ class Config {
         /**
          * Mail end of line - Depends on your mailer - may need to be \r\n
          */
-        this.maileol = "\n";  // Depends on your mailer 
-        
+        this.maileol = "\n";  // Depends on your mailer
+
         /**
          * Set the nonce clearing check proability
          */
@@ -88,7 +88,7 @@ class Config {
          * Set the nonce expiry time
          */
         this.noncetime = 1800;
-        
+
         /**
          * This is used to make sure that our constructed session ids
          * based on resource_link_id, oauth_consumer_key, etc are not
@@ -96,26 +96,26 @@ class Config {
          * See LTIX::getCompositeKey() for detail on how this operates.
          */
         this.sessionsalt = "warning:please-change-sessionsalt-89b543";
-        
+
         // Timezone
         this.timezone = 'Pacific/Honolulu'; // Nice for due dates
-        
+
         // Universal Analytics
         this.universal_analytics = false; // "UA-57880800-1";
-        
+
         // TODO: Make this work in Node - lots of fun
-        // Only define this if you are using Tsugi in single standalone app that 
+        // Only define this if you are using Tsugi in single standalone app that
         // will never be in iframes - because most browsers will *not* set cookies in
         // cross-domain iframes.   If you use this, you cannot be a different
         // user in a different tab or be in a different course in a different
-        // tab.  
+        // tab.
         // if ( !defined('COOKIE_SESSION') ) define('COOKIE_SESSION', true);
-        
+
         /**
          * Effectively an "airplane mode" for the appliction.
-         * Setting this to true makes it so that when you are completely 
-         * disconnected, various tools will not access network resources 
-         * like Google's map library and hang.  Also the Google login will 
+         * Setting this to true makes it so that when you are completely
+         * disconnected, various tools will not access network resources
+         * like Google's map library and hang.  Also the Google login will
          * be faked.  Don't run this in production.
          */
         this.OFFLINE = false;
@@ -160,5 +160,5 @@ class Config {
      */
     get mailsecret() { return Crypto.decryptShortTerm(this._mailsecret); }
 }
-    
+
 module.exports = Config;
