@@ -1,6 +1,6 @@
 
-var Crypto = require("tsugi-node/src/Crypto");
-var PDOX = require("tsugi-node/src/PDOX");
+var Crypto = require("tsugi-node/src/util/Crypto");
+var PDOX = require("tsugi-node/src/util/PDOX");
 var Q = require("q");
 
 /**
