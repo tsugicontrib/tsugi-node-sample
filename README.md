@@ -2,7 +2,7 @@
 Sample Tsugi Application For Node
 =================================
 
-**Under Contstruction:** This is just emerging test code to explore
+**Under Construction:** This is just emerging test code to explore
 how to approach a Tsugi (www.tsugi.org) implementation for Node.
 For now the application and emergent Tsugi library code will all
 be in this sample application repo.  As the Tsugi library code 
